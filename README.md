@@ -8,5 +8,9 @@ Assignment is as follows
 ## Solution description
 TODO
 
+### Logical view
+* hand-drawn, normally it would have been done using some automated drawing tool, such as PlantUML
+![luxonis_trainee_task_logical_view.png](img%2Fluxonis_trainee_task_logical_view.png)
+
 ## Other
 * time spent TODO
