@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+<head>
+    <title>sreality</title>
+</head>
+<body>
+<table>
+    {% for item in advertisements %}
+    <tr>
+        <td>{{loop.index}}) {{ item.name }}</td>
+        <td><img src="{{ item.image_url }}"></td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>
