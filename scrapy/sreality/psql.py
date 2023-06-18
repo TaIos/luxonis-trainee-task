@@ -1,15 +1,11 @@
 import psycopg2
 
 
-def connect(psql_cfg: dict):
+def connect(params: dict):
     """ Connect to the PostgreSQL database server """
     # TODO use logger instead of print
     try:
-        # read connection parameters
-        params = {k: v for k, v in psql_cfg}
-
         # connect to the PostgreSQL server
-        print(f'Connecting to the PostgreSQL database...')
         conn = psycopg2.connect(**params)
         print(f'Successfully connected to {conn.dsn}')
 

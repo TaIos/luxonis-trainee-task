@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  database:
+    build: ./psql
+    env_file:
+      - psql_secrets.env
+    ports:
+      - "5432:5432"
+
+  web:
+    build: ./flask
+    command: uwsgi --socket 0.0.0.0:8080 --protocol=http -w app:app
+    env_file:
+      - psql_secrets.env
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+
+  scraper:
+    build: ./scrapy
+    command: python -m scrapy crawl sreality
+    env_file:
+      - psql_secrets.env
+    depends_on:
+      - database

@@ -1,14 +1,23 @@
+import os
 from configparser import ConfigParser
 
 from sreality.items import FlatItem
 from sreality.psql import connect
 
 
+def retrieve_db_secrets() -> dict:
+    return {
+        'user': os.environ['POSTGRES_USER'],
+        'password': os.environ['POSTGRES_PASSWORD'],
+        'database': os.environ['POSTGRES_DB'],
+        'host': os.environ['POSTGRES_HOST'],
+        'port': os.environ['POSTGRES_PORT']
+    }
+
 class PostgresFlatItemPersistPipeline:
 
     def __init__(self):
-        self.cfg = PostgresFlatItemPersistPipeline._read_and_validate_config(path='sreality.ini')
-        self.conn, self.cur = connect(self.cfg['postgresql'].items())
+        self.conn, self.cur = connect(retrieve_db_secrets())
 
     def process_item(self, item, spider):
         self._persist_item_to_database(item)
