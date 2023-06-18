@@ -7,6 +7,11 @@ services:
       - psql_secrets.env
     ports:
       - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U sreality_user" ]
+      interval: 5s
+      timeout: 5s
+      retries: 3
 
   web:
     build: ./flask
@@ -16,12 +21,14 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - database
+      database:
+        condition: service_healthy
 
   scraper:
     build: ./scrapy
-    command: python -m scrapy crawl sreality
+    command: python run_scraper.py
     env_file:
       - psql_secrets.env
     depends_on:
-      - database
+      database:
+        condition: service_healthy

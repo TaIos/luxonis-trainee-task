@@ -5,8 +5,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 from flask import render_template
 
-print()
-
 
 def retrieve_db_url_with_secrets() -> str:
     user = os.environ['POSTGRES_USER']
