@@ -13,7 +13,7 @@ services:
 
   web:
     build: ./flask
-    command: uwsgi --socket 0.0.0.0:8080 --protocol=http -w app:app
+    command: uwsgi --socket 0.0.0.0:${WEB_PORT} --protocol=http -w app:app
     env_file:
       - psql_secrets.env
     ports:
